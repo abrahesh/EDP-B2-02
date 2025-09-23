@@ -24,7 +24,7 @@ public class FicheroSecuencial<T extends FicheroSecuencialReader> {
     public void close(){
         scanner.close();
     }
-    public boolean isEOF(){
+    public boolean isEndOfFile(){
         return !scanner.hasNextLine();
     }
     
