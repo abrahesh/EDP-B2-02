@@ -7,10 +7,10 @@ public class FicheroSecuencial<T extends FicheroSecuencialReader> {
     private Scanner scanner;
     private String separator;
 
-    public FicheroSecuencial(String nombreFichero) throws FileNotFoundException {
+    public FicheroSecuencial(String nombreFichero, String separator) throws FileNotFoundException {
         file = new File(nombreFichero);
         scanner = new Scanner(file);
-        separator = ",";
+        this.separator = separator;
     }
 
     public void read(T t){
