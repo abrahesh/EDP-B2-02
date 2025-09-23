@@ -1,4 +1,4 @@
-public class Satelite {
+public class Satelite implements FicheroSecuencialReader{
     private double epoch;
     private double inclination;
     private double raan;
