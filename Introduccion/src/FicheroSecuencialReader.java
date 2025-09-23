@@ -1,3 +1,4 @@
-public class FicheroSecuencialReader {
-    
+public interface FicheroSecuencialReader {
+    void readData(String[] data);
+
 }
