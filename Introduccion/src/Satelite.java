@@ -55,4 +55,18 @@ public class Satelite implements FicheroSecuencialReader {
         this.argumentOfPerigee = Double.parseDouble(data[6]);
         this.meanMotion = Double.parseDouble(data[7]);
     }
+
+    @Override
+    public String toString() {
+        return "Satelite{\n" +
+                "objectName='" + objectName + '\'' +
+                ", objectId='" + objectId + '\'' +
+                ", epoch='" + epoch + '\'' +
+                ", meanMotion=" + meanMotion +
+                ", eccentricity=" + eccentricity +
+                ", inclination=" + inclination +
+                ", raan=" + raan +
+                ", argumentOfPerigee=" + argumentOfPerigee +
+                '}';
+    }
 }
