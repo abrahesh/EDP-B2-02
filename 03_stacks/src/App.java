@@ -12,9 +12,12 @@ public class App {
         pila = evaluarExpresion(expr);
     }
 
-    private static Stack<String> invertir() {
-        Stack<String> pilaAuxiliar;
-
+    private static Stack<String> invertir(Stack<String> pila) {
+        Stack<String> pilaAuxiliar = new Stack<String>();
+        for (int i = 0; i < pila.size(); i++) {
+            pilaAuxiliar.push(pila.pop());
+        }
+        return pilaAuxiliar;
     }
 
     private static Stack<String> evaluarExpresion(String[] expr){
