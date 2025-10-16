@@ -1,13 +1,13 @@
 
 
-public class GameQueue implements FicheroSecuencialReader {
+public class GameRequest implements FicheroSecuencialReader, Comparable<GameRequest> {
     private String requestID;
     private String playerID;
     private boolean premiumSubscription;
     private int skillLevel;
     private char matchType;
 
-    public GameQueue() {
+    public GameRequest() {
 
     }
 
@@ -32,6 +32,11 @@ public class GameQueue implements FicheroSecuencialReader {
     }
 
     @Override
+    public int compareTo(GameRequest other) {
+        return Integer.compare(other.skillLevel, this.skillLevel);
+    }
+
+    @Override
     public void readData(String[] data) {
         this.requestID = data[0];
         this.playerID = data[1];
@@ -42,7 +47,7 @@ public class GameQueue implements FicheroSecuencialReader {
 
     @Override
     public String toString() {
-        return "GameQueue [requestID=" + requestID + ", playerID=" + playerID + ", premiumSubscription="
+        return "request [requestID=" + requestID + ", playerID=" + playerID + ", premiumSubscription="
                 + premiumSubscription + ", skillLevel=" + skillLevel + ", matchType=" + matchType + "]";
     }
 }

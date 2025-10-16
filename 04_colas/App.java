@@ -6,36 +6,67 @@ import java.util.concurrent.LinkedBlockingQueue;
 public class App {
 
     public static void main(String[] args) {
-        Queue<GameQueue> premiunLargo = new PriorityBlockingQueue<>();
-        Queue<GameQueue> premiunCorto = new PriorityBlockingQueue<>();
-        Queue<GameQueue> noPremiunLargo = new LinkedBlockingQueue<>();
-        Queue<GameQueue> noPremiunCorto = new LinkedBlockingQueue<>();
+        Queue<GameRequest> premiunLargo = new PriorityBlockingQueue<>();
+        Queue<GameRequest> premiunCorto = new PriorityBlockingQueue<>();
+        Queue<GameRequest> noPremiunLargo = new LinkedBlockingQueue<>();
+        Queue<GameRequest> noPremiunCorto = new LinkedBlockingQueue<>();
 
+        readRequests("player_requests.csv", premiunLargo, premiunCorto, noPremiunLargo, noPremiunCorto);
+
+        doMatchs();
+    }
+
+    public static int doMatchs(){
+        final int premiun = 2;
+        final int noPremiun = 1;
+        
+        return 0;
+    }
+
+    public static int readRequests(String filename, Queue<GameRequest> premiunLargo,
+            Queue<GameRequest> premiunCorto, Queue<GameRequest> noPremiunLargo,
+            Queue<GameRequest> noPremiunCorto) {
+            int nReaded = 0;
         try {
-            FicheroSecuencial<GameQueue> sf =
-                    new FicheroSecuencial<GameQueue>("player_requests.csv", ";");
+            FicheroSecuencial<GameRequest> sf =
+                    new FicheroSecuencial<GameRequest>("player_requests.csv", ";");
             sf.skip();
+            System.out.println("""
+            =====================
+            Reading game requests
+            =====================""");
             while (!sf.isEndOfFile()) {
-                GameQueue gameQueue = new GameQueue();
-                sf.read(gameQueue);
-                if(gameQueue.isPremiumSubscription() == true){
-                    if(gameQueue.getMatchType() == 'L'){
-                        premiunLargo.offer(gameQueue);
-                    }else if(gameQueue.getMatchType() == 'S'){
-                        premiunCorto.offer(gameQueue);
-                    }
-                }else if(gameQueue.isPremiumSubscription() == false){
-                    if(gameQueue.getMatchType() == 'L'){
-                        noPremiunLargo.offer(gameQueue);
-                    }else if(gameQueue.getMatchType() == 'S'){
-                        noPremiunCorto.offer(gameQueue);
-                    }
+                nReaded++;
+                GameRequest request = new GameRequest();
+                sf.read(request);
+                System.out.println("New request: " + request);
+                addRequest(request, premiunLargo, premiunCorto, noPremiunLargo,
+                        noPremiunCorto);
             }
-        }
             sf.close();
         } catch (java.io.FileNotFoundException e) {
             System.err.println("File not found: " + e.getMessage());
         }
+        return nReaded;
+    }
+
+    public static void addRequest(GameRequest request, Queue<GameRequest> premiunLargo,
+            Queue<GameRequest> premiunCorto, Queue<GameRequest> noPremiunLargo,
+            Queue<GameRequest> noPremiunCorto) {
+        if (request.isPremiumSubscription()) {
+            if (request.getMatchType() == 'L') {
+                premiunLargo.add(request);
+            } else {
+                premiunCorto.add(request);
+            }
+        } else {
+            if (request.getMatchType() == 'L') {
+                noPremiunLargo.add(request);
+            } else {
+                noPremiunCorto.add(request);
+            }
+        }
     }
 }
+
 
