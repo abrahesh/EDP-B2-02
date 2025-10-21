@@ -46,7 +46,7 @@ public class ListRequest implements FicheroSecuencialReader {
 
     @Override
     public String toString() {
-        return "ListRequest [Artist=" + Artist + ", Genre=" + Genre + ", day=" + day + ", Stage=" + Stage
-                + ", duration=" + duration + ", popularity=" + popularity + "]";
+        return "ListRequest [Artista=" + Artist + ", Genero=" + Genre + ", dia=" + day + ", Escenario=" + Stage
+                + ", duracion=" + duration + ", popularidad=" + popularity + "]";
     }
 }
