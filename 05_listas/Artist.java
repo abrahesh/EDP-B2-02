@@ -7,7 +7,7 @@ public class Artist implements Comparable<Artist>, FicheroSecuencialReader {
     private int popularity;
 
     public Artist() {
-        
+
     }
 
     public String getArtist() {
@@ -35,6 +35,23 @@ public class Artist implements Comparable<Artist>, FicheroSecuencialReader {
     }
 
     @Override
+    public int compareTo(Artist otroArtista) {
+        if (this.popularity < otroArtista.getPopularity()) {
+            return -1;
+        } else if (this.popularity > otroArtista.getPopularity()) {
+            return 1;
+        } else {
+            if (this.duration < otroArtista.getDuration()) {
+                return -1;
+            } else if (this.duration > otroArtista.getDuration()) {
+                return 1;
+            } else {
+                return this.Artist.compareTo(otroArtista.getArtist());
+            }
+        }
+    }
+
+    @Override
     public void readData(String[] data) {
         this.Artist = data[0];
         this.Genre = data[1];
@@ -46,7 +63,8 @@ public class Artist implements Comparable<Artist>, FicheroSecuencialReader {
 
     @Override
     public String toString() {
-        return "ListRequest [Artista=" + Artist + ", Genero=" + Genre + ", dia=" + day + ", Escenario=" + Stage
-                + ", duracion=" + duration + ", popularidad=" + popularity + "]";
+        return "ListRequest [Artista=" + Artist + ", Genero=" + Genre + ", dia=" + day
+                + ", Escenario=" + Stage + ", duracion=" + duration + ", popularidad=" + popularity
+                + "]";
     }
 }
